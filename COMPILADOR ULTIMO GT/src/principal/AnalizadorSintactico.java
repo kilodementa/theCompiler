@@ -94,7 +94,6 @@ public class AnalizadorSintactico {
                 if(indice == -1){
                     aSem.agregarBean(base+desplazamiento, beanConstante); 
                     desplazamiento++;
-                    
                 }else{
                     indError.mostrarError(23, alex.getCadena());
              
@@ -144,8 +143,7 @@ public class AnalizadorSintactico {
             intentoMaravilla();            
             if (alex.getSimbolo() == Terminal.IDENTIFICADOR) {
                 beanVariable.setNombre(alex.getCadena());
-                beanVariable.setValor(0);
-                
+                beanVariable.setValor(cantidadDeVariables*4);                
                 indice = aSem.buscarBean(base+desplazamiento-1, base, beanVariable.getNombre());
                 if(indice == -1){
                         aSem.agregarBean(base+desplazamiento, beanVariable); 
@@ -164,8 +162,8 @@ public class AnalizadorSintactico {
                 intentoMaravilla();
                 if (alex.getSimbolo() == Terminal.IDENTIFICADOR) {
                     beanVariableWhile.setNombre(alex.getCadena());
-                    beanVariableWhile.setValor(0);
-                    
+                    beanVariableWhile.setValor(cantidadDeVariables*4);
+                    cantidadDeVariables++;
                     indice = aSem.buscarBean(base+desplazamiento-1, base, beanVariableWhile.getNombre());
                     if(indice == -1){
                         aSem.agregarBean(base+desplazamiento, beanVariableWhile);
@@ -192,6 +190,7 @@ public class AnalizadorSintactico {
             intentoMaravilla();                     
             if (alex.getSimbolo() == Terminal.IDENTIFICADOR) {
                 procedureBean.setNombre(alex.getCadena());
+                procedureBean.setValor(genCod.getTopeMemoria());
                 indice = aSem.buscarBean(base+desplazamiento-1, base, procedureBean.getNombre());
                 if(indice == -1){
                     aSem.agregarBean(base+desplazamiento, procedureBean);
@@ -225,6 +224,7 @@ public class AnalizadorSintactico {
         switch (alex.getSimbolo()) {
             case IDENTIFICADOR:
                 indice = aSem.buscarBean(base+desplazamiento-1, 0, alex.getCadena());
+                IdentificadorBean ident = aSem.obtenerBean(indice);
                 if(indice == -1){
                     indError.mostrarError(24, alex.getCadena());
                 }
